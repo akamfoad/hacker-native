@@ -65,7 +65,6 @@ export const Posts = () => {
 
   return (
     <FlatList
-      style={{ borderWidth: 1, borderColor: "orange", borderStyle: "solid" }}
       keyExtractor={(item) => item.id.toString()}
       data={data?.pages.flat()}
       onEndReached={() => {

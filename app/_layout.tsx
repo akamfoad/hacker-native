@@ -15,7 +15,7 @@ export default function Layout() {
   const safeArea = useSafeAreaInsets();
   return (
     <>
-      <SafeAreaProvider style={{ backgroundColor: "#fef4ed" }}>
+      <SafeAreaProvider style={{ backgroundColor: "#fff5ee" }}>
         <StatusBar style="inverted" backgroundColor={Colors.accent} />
         <QueryClientProvider client={queryClient}>
           <View
