@@ -221,6 +221,8 @@ PODS:
     - ExpoModulesCore
   - ExpoFont (12.0.9):
     - ExpoModulesCore
+  - ExpoHaptics (13.0.1):
+    - ExpoModulesCore
   - ExpoHead (3.5.21):
     - ExpoModulesCore
   - ExpoKeepAwake (13.0.2):
@@ -1505,6 +1507,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNSVG (15.2.0):
+    - React-Core
   - SocketRocket (0.7.0)
   - Yoga (0.0.0)
 
@@ -1522,6 +1526,7 @@ DEPENDENCIES:
   - ExpoAsset (from `../node_modules/expo-asset/ios`)
   - ExpoFileSystem (from `../node_modules/expo-file-system/ios`)
   - ExpoFont (from `../node_modules/expo-font/ios`)
+  - ExpoHaptics (from `../node_modules/expo-haptics/ios`)
   - ExpoHead (from `../node_modules/expo-router/ios`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
@@ -1586,6 +1591,7 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -1619,6 +1625,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-file-system/ios"
   ExpoFont:
     :path: "../node_modules/expo-font/ios"
+  ExpoHaptics:
+    :path: "../node_modules/expo-haptics/ios"
   ExpoHead:
     :path: "../node_modules/expo-router/ios"
   ExpoKeepAwake:
@@ -1744,6 +1752,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -1761,6 +1771,7 @@ SPEC CHECKSUMS:
   ExpoAsset: 323700f291684f110fb55f0d4022a3362ea9f875
   ExpoFileSystem: 80bfe850b1f9922c16905822ecbf97acd711dc51
   ExpoFont: e7f2275c10ca8573c991e007329ad6bf98086485
+  ExpoHaptics: 5a3a88971af384255baf2504f38b41189cec6984
   ExpoHead: 342c7a6692f00bd9f23169183098a5c78eebe644
   ExpoKeepAwake: 3b8815d9dd1d419ee474df004021c69fdd316d08
   ExpoModulesCore: 5440e96a8ee014f4fd88e77264985fd0a65f5f8c
@@ -1823,6 +1834,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: 2282cfbcf86c360d29f44ace393203afd5c6cff7
   RNReanimated: 35f9ac9c3ac42d0497ebd1cce5c39d7687a8493e
   RNScreens: b32a9ff15bea7fcdbe5dff6477bc503f792b1208
+  RNSVG: 43b64ed39c14ce830d840903774154ca0c1f27ec
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: 950bbfd7e6f04790fdb51149ed51df41f329fcc8
 
