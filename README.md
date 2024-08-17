@@ -26,3 +26,4 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
   - [ ] Sign in
   - [ ] Sign up
   - [ ] Pick a provider to show profile icon (GitHub, gravatar etc...) based on username or email
+- [ ] Enhance text rendering (Code blocks (pre>code), blockquote, list, inline code (code))
