@@ -6,6 +6,7 @@ import RenderHTML from "react-native-render-html";
 
 export const Comment = (item: Item) => {
   const { width: windowWidth } = useWindowDimensions();
+
   return (
     <View
       style={{
@@ -45,13 +46,9 @@ export const Comment = (item: Item) => {
           <RenderHTML
             source={{ html: item.text }}
             baseStyle={{
-              fontSize: 14,
+              fontSize: 15,
+              lineHeight: 22,
               fontWeight: 400,
-              fontFamily: Platform.select({
-                ios: "Menlo",
-                android: "monospace",
-                default: "monospace",
-              }),
             }}
             contentWidth={windowWidth}
           />

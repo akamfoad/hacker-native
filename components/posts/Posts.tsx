@@ -1,20 +1,11 @@
-import {
-  FlatList,
-  Text,
-  View,
-  Animated,
-  Easing,
-  ListRenderItem,
-} from "react-native";
 import { getItemDetails, getTopStories } from "@/api/endpoints";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { Loader } from "lucide-react-native";
-import { Colors } from "@/constants/Colors";
-import { useCallback, useEffect, useMemo } from "react";
 import { Spinner } from "@/components/Spinner";
 import { Post } from "@/components/posts/Post";
-import { Item } from "@/shared/types";
 import { ITEMS_PER_PAGE } from "@/constants/pagination";
+import { Item } from "@/shared/types";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
+import { FlatList, ListRenderItem, View } from "react-native";
 
 const renderItem: ListRenderItem<Item> = ({ item }) => {
   return <Post {...item} />;
@@ -62,16 +53,17 @@ export const Posts = () => {
     initialPageParam: 0,
   });
 
+  const posts = useMemo(() => data?.pages.flat(), [data]);
+
   return (
     <FlatList
       keyExtractor={(item) => item.id.toString()}
-      data={data?.pages
-        .flat()
-        // .filter(({ kids, text }) => kids?.length > 0 && text !== undefined)
-      }
+      data={posts}
+      onEndReachedThreshold={0.5}
       onEndReached={() => {
         if (hasNextPage) fetchNextPage();
       }}
+      contentContainerStyle={{ flexGrow: 1 }}
       renderItem={renderItem}
       ListFooterComponent={() => {
         if (!isLoading) return null;

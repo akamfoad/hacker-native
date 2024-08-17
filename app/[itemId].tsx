@@ -42,66 +42,24 @@ export default function ItemDetails() {
         <ArrowLeft color={Colors.accent} width={20} strokeWidth={3} />
         <Text style={styles.backButtonText}>Back</Text>
       </Pressable>
-      <ScrollView>
+      <ScrollView
+        onScrollEndDrag={(e) => {
+          if (e.nativeEvent.contentOffset.y === 0) {
+          }
+        }}
+      >
         {item && (
           <>
             <View style={{ gap: 10 }}>
               <Text style={{ color: "black", fontSize: 20, fontWeight: 500 }}>
                 {item.title}
               </Text>
-              <View
-                style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
-              >
-                <Pressable
-                  style={StyleSheet.compose(styles.baseButton, styles.button)}
-                  onPress={async () => {
-                    await Haptics.notificationAsync(
-                      Haptics.NotificationFeedbackType.Success
-                    );
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontFamily: Platform.select({
-                        ios: "Menlo",
-                        android: "monospace",
-                        default: "monospace",
-                      }),
-                    }}
-                  >
-                    <Text style={{ fontSize: 18, lineHeight: 18 }}>▲</Text>{" "}
-                    {item.score}
-                  </Text>
-                </Pressable>
-                {item.url && (
-                  <Pressable
-                    style={StyleSheet.compose(styles.baseButton, styles.link)}
-                    onPress={() => {
-                      Linking.openURL(item.url);
-                    }}
-                  >
-                    <Link2 color="black" width={16} />
-                    <Text
-                      style={{
-                        fontSize: 13,
-                        fontFamily: Platform.select({
-                          ios: "Menlo",
-                          android: "monospace",
-                          default: "monospace",
-                        }),
-                      }}
-                    >
-                      {new URL(item.url).host}
-                    </Text>
-                  </Pressable>
-                )}
-              </View>
             </View>
             <View
               style={{
                 height: 1,
-                backgroundColor: "#e2e8f0",
-                marginVertical: 22,
+                // backgroundColor: "#e2e8f0",
+                marginVertical: 14,
               }}
             />
 
@@ -140,19 +98,68 @@ export default function ItemDetails() {
                 source={{ html: item.text }}
                 baseStyle={{
                   marginVertical: 16,
-                  fontSize: 16,
+                  fontSize: 17,
+                  lineHeight: 22,
                   fontWeight: 400,
-                  fontFamily: Platform.select({
-                    ios: "Menlo",
-                    android: "monospace",
-                    default: "monospace",
-                  }),
                 }}
                 contentWidth={windowWidth}
               />
             )}
 
-            <Comments kids={item.kids} />
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 10,
+                marginBottom: 24,
+              }}
+            >
+              <Pressable
+                style={StyleSheet.compose(styles.baseButton, styles.button)}
+                onPress={async () => {
+                  await Haptics.notificationAsync(
+                    Haptics.NotificationFeedbackType.Success
+                  );
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: Platform.select({
+                      ios: "Menlo",
+                      android: "monospace",
+                      default: "monospace",
+                    }),
+                  }}
+                >
+                  <Text style={{ fontSize: 18, lineHeight: 18 }}>▲</Text>{" "}
+                  {item.score}
+                </Text>
+              </Pressable>
+              {item.url && (
+                <Pressable
+                  style={StyleSheet.compose(styles.baseButton, styles.link)}
+                  onPress={() => {
+                    Linking.openURL(item.url);
+                  }}
+                >
+                  <Link2 color="black" width={16} />
+                  <Text
+                    style={{
+                      fontSize: 13,
+                      fontFamily: Platform.select({
+                        ios: "Menlo",
+                        android: "monospace",
+                        default: "monospace",
+                      }),
+                    }}
+                  >
+                    {new URL(item.url).host}
+                  </Text>
+                </Pressable>
+              )}
+            </View>
+
+            <Comments id={item.id} kids={item.kids} />
           </>
         )}
       </ScrollView>
