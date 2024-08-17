@@ -1,9 +1,11 @@
-import { getItemDetails } from "@/api/endpoints";
+import { Comments } from "@/components/comments/comments";
 import { Colors } from "@/constants/Colors";
+import { getItemDetailsQueryKey, getItemQueryFn } from "@/constants/item";
 import { useQuery } from "@tanstack/react-query";
+import { formatDistanceToNowStrict } from "date-fns";
+import * as Haptics from "expo-haptics";
 import { router, useLocalSearchParams } from "expo-router";
 import { ArrowLeft, Link2, MessageSquareText } from "lucide-react-native";
-import * as Haptics from "expo-haptics";
 import {
   Linking,
   Platform,
@@ -14,10 +16,7 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
-import { formatDistanceToNowStrict } from "date-fns";
-import { Comments } from "@/components/comments/comments";
 import RenderHTML from "react-native-render-html";
-import { getItemDetailsQueryKey, getItemQueryFn } from "@/constants/item";
 
 export default function ItemDetails() {
   const { itemId } = useLocalSearchParams();
@@ -39,10 +38,9 @@ export default function ItemDetails() {
         <Text style={styles.backButtonText}>Back</Text>
       </Pressable>
       <ScrollView
-        onScrollEndDrag={(e) => {
-          if (e.nativeEvent.contentOffset.y === 0) {
-          }
-        }}
+        indicatorStyle="black"
+        showsHorizontalScrollIndicator
+        style={{ paddingHorizontal: 22 }}
       >
         {item && (
           <>
@@ -186,10 +184,11 @@ export default function ItemDetails() {
 
 const styles = StyleSheet.create({
   page: {
-    padding: 22,
+    paddingVertical: 22,
     flex: 1,
   },
   backButton: {
+    paddingHorizontal: 22,
     marginBottom: 22,
     flexDirection: "row",
     alignItems: "center",
