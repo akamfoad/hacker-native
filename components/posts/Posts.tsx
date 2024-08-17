@@ -53,10 +53,15 @@ export const Posts = () => {
     initialPageParam: 0,
   });
 
-  const posts = useMemo(() => data?.pages.flat(), [data]);
+  const posts = useMemo(() => {
+    return data?.pages
+      .flat()
+      .filter(({ dead, deleted }) => dead !== true && deleted !== true);
+  }, [data]);
 
   return (
     <FlatList
+      indicatorStyle="black"
       keyExtractor={(item) => item.id.toString()}
       data={posts}
       onEndReachedThreshold={0.5}

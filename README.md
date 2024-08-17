@@ -9,6 +9,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 - [ ] Show List of Posts
   - [X] Show link, comment and upvote count
   - [ ] Subscribe to Firebase realtime to update interaction as they get updated
+  - [ ] Restore scroll position when navigating to details and get back to list screen
 - [ ] Show post details
   - [X] Post Details
   - [X] Post Comments

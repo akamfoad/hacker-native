@@ -39,11 +39,14 @@ export const Comments = ({ id, kids, children }: Props) => {
     });
 
   const comments = useMemo(() => {
-    return data?.pages.flat().filter(({ deleted }) => deleted !== true);
+    return data?.pages
+      .flat()
+      .filter(({ dead, deleted }) => dead !== true && deleted !== true);
   }, [data]);
 
   return (
     <FlatList
+      indicatorStyle="black"
       ListHeaderComponent={() => children}
       style={{ paddingHorizontal: 22 }}
       keyExtractor={(item) => item.id.toString()}
