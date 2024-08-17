@@ -6,12 +6,14 @@ import { Item } from "@/shared/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { ReactNode, useMemo } from "react";
 import { FlatList, ListRenderItem, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type Props = Pick<Item, "id" | "kids"> & {
   children: ReactNode;
 };
 
 export const Comments = ({ id, kids, children }: Props) => {
+  const { bottom } = useSafeAreaInsets();
   const { data, hasNextPage, isLoading, isFetchingNextPage, fetchNextPage } =
     useInfiniteQuery({
       queryKey: [id, "comments"],
@@ -59,7 +61,7 @@ export const Comments = ({ id, kids, children }: Props) => {
       contentContainerStyle={{ flexGrow: 1 }}
       renderItem={renderItem}
       ListFooterComponent={() => {
-        if (!isLoading) return null;
+        if (!isLoading) return <View style={{ height: bottom }} />;
 
         return (
           <View

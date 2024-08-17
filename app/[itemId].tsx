@@ -176,7 +176,7 @@ export default function ItemDetails() {
 
 const styles = StyleSheet.create({
   page: {
-    paddingVertical: 22,
+    paddingTop: 22,
     flex: 1,
   },
   backButton: {
