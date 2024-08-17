@@ -55,7 +55,6 @@ export const Comments = ({ id, kids, children }: Props) => {
       data={comments}
       onEndReachedThreshold={0.5}
       onEndReached={() => {
-        console.log({ hasNextPage });
         if (hasNextPage) fetchNextPage();
       }}
       contentContainerStyle={{ flexGrow: 1 }}
