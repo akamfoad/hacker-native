@@ -1,11 +1,17 @@
 import { getItemDetails } from "@/api/endpoints";
 import { Comment } from "@/components/comments/comment";
+import { Spinner } from "@/components/Spinner";
 import { ITEMS_PER_PAGE } from "@/constants/pagination";
 import { Item } from "@/shared/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { View } from "react-native";
+import { ReactNode, useMemo } from "react";
+import { FlatList, ListRenderItem, View } from "react-native";
 
-export const Comments = ({ id, kids }: Pick<Item, "id" | "kids">) => {
+type Props = Pick<Item, "id" | "kids"> & {
+  children: ReactNode;
+};
+
+export const Comments = ({ id, kids, children }: Props) => {
   const { data, hasNextPage, isLoading, isFetchingNextPage, fetchNextPage } =
     useInfiniteQuery({
       queryKey: [id, "comments"],
@@ -32,11 +38,47 @@ export const Comments = ({ id, kids }: Pick<Item, "id" | "kids">) => {
       initialPageParam: 0,
     });
 
+  const comments = useMemo(() => {
+    return data?.pages.flat().filter(({ deleted }) => deleted !== true);
+  }, [data]);
+
   return (
-    <View style={{ gap: 32 }}>
-      {data?.pages.flat().map((comment) => (
-        <Comment key={comment.id} {...comment} />
-      ))}
-    </View>
+    <FlatList
+      ListHeaderComponent={() => children}
+      style={{ paddingHorizontal: 22 }}
+      keyExtractor={(item) => item.id.toString()}
+      data={comments}
+      onEndReachedThreshold={0.5}
+      onEndReached={() => {
+        console.log({ hasNextPage });
+        if (hasNextPage) fetchNextPage();
+      }}
+      contentContainerStyle={{ flexGrow: 1 }}
+      renderItem={renderItem}
+      ListFooterComponent={() => {
+        if (!isLoading) return null;
+
+        return (
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              marginVertical: 15,
+            }}
+          >
+            <Spinner />
+          </View>
+        );
+      }}
+      ItemSeparatorComponent={ItemSeparatorComponent}
+    />
   );
 };
+
+const renderItem: ListRenderItem<Item> = ({ item }) => {
+  return <Comment {...item} />;
+};
+
+const ItemSeparatorComponent = () => (
+  <View style={{ paddingVertical: 16 }}></View>
+);

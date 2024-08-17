@@ -37,38 +37,82 @@ export default function ItemDetails() {
         <ArrowLeft color={Colors.accent} width={20} strokeWidth={3} />
         <Text style={styles.backButtonText}>Back</Text>
       </Pressable>
-      <ScrollView
-        indicatorStyle="black"
-        showsHorizontalScrollIndicator
-        style={{ paddingHorizontal: 22 }}
-      >
-        {item && (
-          <>
-            <View style={{ gap: 10 }}>
-              <Text style={{ color: "black", fontSize: 20, fontWeight: 500 }}>
-                {item.title}
-              </Text>
-            </View>
-            <View
-              style={{
-                height: 1,
-                // backgroundColor: "#e2e8f0",
-                marginVertical: 14,
-              }}
-            />
+      {item && (
+        <Comments id={item.id} kids={item.kids}>
+          <View style={{ gap: 10 }}>
+            <Text style={{ color: "black", fontSize: 20, fontWeight: 500 }}>
+              {item.title}
+            </Text>
+          </View>
+          <View
+            style={{
+              height: 1,
+              // backgroundColor: "#e2e8f0",
+              marginVertical: 14,
+            }}
+          />
 
-            <View
+          <View
+            style={{
+              flexDirection: "row",
+              gap: 8,
+              alignItems: "center",
+              marginBottom: typeof item.text === "string" ? 0 : 24,
+            }}
+          >
+            <Text
               style={{
-                flexDirection: "row",
-                gap: 8,
-                alignItems: "center",
-                marginBottom: typeof item.text === "string" ? 0 : 24,
+                fontSize: 16,
+                fontWeight: 500,
+                fontFamily: Platform.select({
+                  ios: "Menlo",
+                  android: "monospace",
+                  default: "monospace",
+                }),
+              }}
+            >
+              {item.by}
+            </Text>
+            {item.time && (
+              <Text>
+                posted{" "}
+                {formatDistanceToNowStrict(new Date(item.time * 1000), {
+                  addSuffix: true,
+                })}
+              </Text>
+            )}
+          </View>
+          {typeof item.text === "string" && (
+            <RenderHTML
+              source={{ html: item.text }}
+              baseStyle={{
+                marginVertical: 16,
+                fontSize: 17,
+                lineHeight: 22,
+                fontWeight: 400,
+              }}
+              contentWidth={windowWidth}
+            />
+          )}
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 10,
+              marginBottom: 24,
+            }}
+          >
+            <Pressable
+              style={StyleSheet.compose(styles.baseButton, styles.button)}
+              onPress={async () => {
+                await Haptics.notificationAsync(
+                  Haptics.NotificationFeedbackType.Success
+                );
               }}
             >
               <Text
                 style={{
-                  fontSize: 16,
-                  fontWeight: 500,
                   fontFamily: Platform.select({
                     ios: "Menlo",
                     android: "monospace",
@@ -76,48 +120,42 @@ export default function ItemDetails() {
                   }),
                 }}
               >
-                {item.by}
+                <Text style={{ fontSize: 18, lineHeight: 18 }}>▲</Text>{" "}
+                {item.score}
               </Text>
-              {item.time && (
-                <Text>
-                  posted{" "}
-                  {formatDistanceToNowStrict(new Date(item.time * 1000), {
-                    addSuffix: true,
-                  })}
-                </Text>
-              )}
-            </View>
-            {typeof item.text === "string" && (
-              <RenderHTML
-                source={{ html: item.text }}
-                baseStyle={{
-                  marginVertical: 16,
-                  fontSize: 17,
-                  lineHeight: 22,
-                  fontWeight: 400,
-                }}
-                contentWidth={windowWidth}
-              />
-            )}
-
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                gap: 10,
-                marginBottom: 24,
+            </Pressable>
+            <Pressable
+              style={StyleSheet.compose(styles.baseButton, styles.button)}
+              onPress={async () => {
+                await Haptics.notificationAsync(
+                  Haptics.NotificationFeedbackType.Warning
+                );
               }}
             >
-              <Pressable
-                style={StyleSheet.compose(styles.baseButton, styles.button)}
-                onPress={async () => {
-                  await Haptics.notificationAsync(
-                    Haptics.NotificationFeedbackType.Success
-                  );
+              <MessageSquareText color="black" width={16} />
+              <Text
+                style={{
+                  fontFamily: Platform.select({
+                    ios: "Menlo",
+                    android: "monospace",
+                    default: "monospace",
+                  }),
                 }}
               >
+                {item.kids?.length || 0}
+              </Text>
+            </Pressable>
+            {item.url && (
+              <Pressable
+                style={StyleSheet.compose(styles.baseButton, styles.link)}
+                onPress={() => {
+                  Linking.openURL(item.url);
+                }}
+              >
+                <Link2 color="black" width={16} />
                 <Text
                   style={{
+                    fontSize: 13,
                     fontFamily: Platform.select({
                       ios: "Menlo",
                       android: "monospace",
@@ -125,59 +163,13 @@ export default function ItemDetails() {
                     }),
                   }}
                 >
-                  <Text style={{ fontSize: 18, lineHeight: 18 }}>▲</Text>{" "}
-                  {item.score}
+                  {new URL(item.url).host}
                 </Text>
               </Pressable>
-              <Pressable
-                style={StyleSheet.compose(styles.baseButton, styles.button)}
-                onPress={async () => {
-                  await Haptics.notificationAsync(
-                    Haptics.NotificationFeedbackType.Warning
-                  );
-                }}
-              >
-                <MessageSquareText color="black" width={16} />
-                <Text
-                  style={{
-                    fontFamily: Platform.select({
-                      ios: "Menlo",
-                      android: "monospace",
-                      default: "monospace",
-                    }),
-                  }}
-                >
-                  {item.kids?.length || 0}
-                </Text>
-              </Pressable>
-              {item.url && (
-                <Pressable
-                  style={StyleSheet.compose(styles.baseButton, styles.link)}
-                  onPress={() => {
-                    Linking.openURL(item.url);
-                  }}
-                >
-                  <Link2 color="black" width={16} />
-                  <Text
-                    style={{
-                      fontSize: 13,
-                      fontFamily: Platform.select({
-                        ios: "Menlo",
-                        android: "monospace",
-                        default: "monospace",
-                      }),
-                    }}
-                  >
-                    {new URL(item.url).host}
-                  </Text>
-                </Pressable>
-              )}
-            </View>
-
-            <Comments id={item.id} kids={item.kids} />
-          </>
-        )}
-      </ScrollView>
+            )}
+          </View>
+        </Comments>
+      )}
     </View>
   );
 }
