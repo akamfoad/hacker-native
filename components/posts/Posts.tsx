@@ -14,8 +14,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import { Spinner } from "@/components/Spinner";
 import { Post } from "@/components/posts/Post";
 import { Item } from "@/shared/types";
-
-const ITEMS_PER_PAGE = 10 ;
+import { ITEMS_PER_PAGE } from "@/constants/pagination";
 
 const renderItem: ListRenderItem<Item> = ({ item }) => {
   return <Post {...item} />;
@@ -66,7 +65,10 @@ export const Posts = () => {
   return (
     <FlatList
       keyExtractor={(item) => item.id.toString()}
-      data={data?.pages.flat()}
+      data={data?.pages
+        .flat()
+        // .filter(({ kids, text }) => kids?.length > 0 && text !== undefined)
+      }
       onEndReached={() => {
         if (hasNextPage) fetchNextPage();
       }}

@@ -1,4 +1,5 @@
 import { Item } from "@/shared/types";
+import { QueryClient } from "@tanstack/react-query";
 import * as Haptics from "expo-haptics";
 import { Link, router } from "expo-router";
 import { Link2, MessageSquareText } from "lucide-react-native";
@@ -13,8 +14,6 @@ import {
 } from "react-native";
 
 export const Post = ({ id, title, url, score, text }: Item) => {
-  console.log(url, text);
-
   const isExternal = useMemo(() => {
     return text === undefined;
   }, [text]);
@@ -35,7 +34,6 @@ export const Post = ({ id, title, url, score, text }: Item) => {
           {title}
         </Text>
       </Pressable>
-      <Link href={`/${id}`}>{title}</Link>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
         <Pressable
           style={StyleSheet.compose(styles.baseButton, styles.button)}
@@ -59,7 +57,9 @@ export const Post = ({ id, title, url, score, text }: Item) => {
         </Pressable>
         <Pressable
           style={StyleSheet.compose(styles.baseButton, styles.button)}
-          onPress={async () => {}}
+          onPress={() => {
+            router.push({ pathname: `./${id.toString()}` });
+          }}
         >
           <MessageSquareText color="black" width={16} />
           <Text

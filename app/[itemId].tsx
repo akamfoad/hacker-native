@@ -1,8 +1,8 @@
 import { getItemDetails } from "@/api/endpoints";
 import { Colors } from "@/constants/Colors";
 import { useQuery } from "@tanstack/react-query";
-import { Link, router, useLocalSearchParams } from "expo-router";
-import { ArrowLeft, Link2, MessageSquareText } from "lucide-react-native";
+import { router, useLocalSearchParams } from "expo-router";
+import { ArrowLeft, Link2 } from "lucide-react-native";
 import * as Haptics from "expo-haptics";
 import {
   Linking,
@@ -11,12 +11,16 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from "react-native";
-import { formatDistance, formatDistanceToNow, formatRelative } from "date-fns";
+import { formatDistanceToNowStrict } from "date-fns";
+import { Comments } from "@/components/comments/comments";
+import RenderHTML from "react-native-render-html";
 
 export default function ItemDetails() {
   const { itemId } = useLocalSearchParams();
+  const { width: windowWidth } = useWindowDimensions();
 
   if (typeof itemId !== "string") {
     return router.replace("/");
@@ -102,11 +106,16 @@ export default function ItemDetails() {
             />
 
             <View
-              style={{ flexDirection: "row", gap: 8, alignItems: "center" }}
+              style={{
+                flexDirection: "row",
+                gap: 8,
+                alignItems: "center",
+                marginBottom: typeof item.text === "string" ? 0 : 24,
+              }}
             >
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: 500,
                   fontFamily: Platform.select({
                     ios: "Menlo",
@@ -119,17 +128,19 @@ export default function ItemDetails() {
               </Text>
               {item.time && (
                 <Text>
-                  {formatDistanceToNow(new Date(item.time * 1000), {
+                  posted{" "}
+                  {formatDistanceToNowStrict(new Date(item.time * 1000), {
                     addSuffix: true,
                   })}
                 </Text>
               )}
             </View>
             {typeof item.text === "string" && (
-              <Text
-                style={{
+              <RenderHTML
+                source={{ html: item.text }}
+                baseStyle={{
                   marginVertical: 16,
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: 400,
                   fontFamily: Platform.select({
                     ios: "Menlo",
@@ -137,10 +148,11 @@ export default function ItemDetails() {
                     default: "monospace",
                   }),
                 }}
-              >
-                {item.text}
-              </Text>
+                contentWidth={windowWidth}
+              />
             )}
+
+            <Comments kids={item.kids} />
           </>
         )}
       </ScrollView>
