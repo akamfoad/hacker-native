@@ -1,8 +1,18 @@
-import { Platform, Text, useWindowDimensions, View } from "react-native";
+import {
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import { Item } from "@/shared/types";
 import { formatDistanceToNow, formatDistanceToNowStrict } from "date-fns";
 import { Colors } from "@/constants/Colors";
+import * as Haptics from "expo-haptics";
+
 import RenderHTML from "react-native-render-html";
+import { MessageSquareText } from "lucide-react-native";
 
 export const Comment = (item: Item) => {
   const { width: windowWidth } = useWindowDimensions();
@@ -54,6 +64,67 @@ export const Comment = (item: Item) => {
           />
         </View>
       )}
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+        <Pressable
+          style={StyleSheet.compose(styles.baseButton, styles.button)}
+          onPress={async () => {
+            await Haptics.notificationAsync(
+              Haptics.NotificationFeedbackType.Success
+            );
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: Platform.select({
+                ios: "Menlo",
+                android: "monospace",
+                default: "monospace",
+              }),
+            }}
+          >
+            <Text style={{ fontSize: 18, lineHeight: 18 }}>▲</Text>{" "}
+            {item.score || 0}
+          </Text>
+        </Pressable>
+        <Pressable
+          style={StyleSheet.compose(styles.baseButton, styles.button)}
+          onPress={async () => {
+            await Haptics.notificationAsync(
+              Haptics.NotificationFeedbackType.Warning
+            );
+          }}
+        >
+          <MessageSquareText color="black" width={16} />
+          <Text
+            style={{
+              fontFamily: Platform.select({
+                ios: "Menlo",
+                android: "monospace",
+                default: "monospace",
+              }),
+            }}
+          >
+            {item.kids?.length || 0}
+          </Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  baseButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    borderRadius: 20,
+    paddingVertical: 6,
+    paddingHorizontal: 16,
+  },
+  link: { paddingHorizontal: 0, paddingVertical: 0 },
+  button: {
+    backgroundColor: "#f1f1f1",
+    maxHeight: 32,
+    minHeight: 32,
+  },
+});

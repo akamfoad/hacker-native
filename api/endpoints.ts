@@ -10,7 +10,7 @@ export const getTopStories = () => {
   }) as Promise<TypedResponse<number[]>>;
 };
 
-export const getItemDetails = (id: number) => {
+export const getItemDetails = (id: number|string) => {
   return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`, {
     method: "GET",
   }) as Promise<TypedResponse<Item>>;

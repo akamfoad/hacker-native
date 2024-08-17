@@ -2,7 +2,7 @@ import { getItemDetails } from "@/api/endpoints";
 import { Colors } from "@/constants/Colors";
 import { useQuery } from "@tanstack/react-query";
 import { router, useLocalSearchParams } from "expo-router";
-import { ArrowLeft, Link2 } from "lucide-react-native";
+import { ArrowLeft, Link2, MessageSquareText } from "lucide-react-native";
 import * as Haptics from "expo-haptics";
 import {
   Linking,
@@ -17,6 +17,7 @@ import {
 import { formatDistanceToNowStrict } from "date-fns";
 import { Comments } from "@/components/comments/comments";
 import RenderHTML from "react-native-render-html";
+import { getItemDetailsQueryKey, getItemQueryFn } from "@/constants/item";
 
 export default function ItemDetails() {
   const { itemId } = useLocalSearchParams();
@@ -27,13 +28,8 @@ export default function ItemDetails() {
   }
 
   const { data: item } = useQuery({
-    queryKey: ["storyDetails", itemId],
-    queryFn: async () => {
-      const res = await getItemDetails(Number.parseInt(itemId, 10));
-      const details = await res.json();
-
-      return details;
-    },
+    queryKey: getItemDetailsQueryKey(itemId),
+    queryFn: getItemQueryFn,
   });
 
   return (
@@ -133,6 +129,27 @@ export default function ItemDetails() {
                 >
                   <Text style={{ fontSize: 18, lineHeight: 18 }}>▲</Text>{" "}
                   {item.score}
+                </Text>
+              </Pressable>
+              <Pressable
+                style={StyleSheet.compose(styles.baseButton, styles.button)}
+                onPress={async () => {
+                  await Haptics.notificationAsync(
+                    Haptics.NotificationFeedbackType.Warning
+                  );
+                }}
+              >
+                <MessageSquareText color="black" width={16} />
+                <Text
+                  style={{
+                    fontFamily: Platform.select({
+                      ios: "Menlo",
+                      android: "monospace",
+                      default: "monospace",
+                    }),
+                  }}
+                >
+                  {item.kids?.length || 0}
                 </Text>
               </Pressable>
               {item.url && (
