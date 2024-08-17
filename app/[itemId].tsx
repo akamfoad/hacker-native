@@ -33,28 +33,15 @@ export default function ItemDetails() {
   });
 
   return (
-    <View style={{ padding: 22 }}>
-      <Pressable
-        onPress={() => {
-          router.replace("/");
-        }}
-        style={{ flexDirection: "row", alignItems: "center", gap: 4 }}
-      >
+    <View style={styles.page}>
+      <Pressable onPress={() => router.replace("/")} style={styles.backButton}>
         <ArrowLeft color={Colors.accent} width={20} strokeWidth={3} />
-        <Text
-          style={{
-            fontSize: 18,
-            color: Colors.accent,
-            fontWeight: 600,
-          }}
-        >
-          Back
-        </Text>
+        <Text style={styles.backButtonText}>Back</Text>
       </Pressable>
-      <ScrollView style={{borderWidth:1}}>
+      <ScrollView>
         {item && (
           <>
-            <View style={{ marginTop: 22, gap: 10 }}>
+            <View style={{ gap: 10 }}>
               <Text style={{ color: "black", fontSize: 20, fontWeight: 500 }}>
                 {item.title}
               </Text>
@@ -162,6 +149,21 @@ export default function ItemDetails() {
 }
 
 const styles = StyleSheet.create({
+  page: {
+    padding: 22,
+    flex: 1,
+  },
+  backButton: {
+    marginBottom: 22,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  backButtonText: {
+    fontSize: 18,
+    color: Colors.accent,
+    fontWeight: 600,
+  },
   baseButton: {
     flexDirection: "row",
     alignItems: "center",

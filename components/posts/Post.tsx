@@ -1,7 +1,8 @@
 import { Item } from "@/shared/types";
 import * as Haptics from "expo-haptics";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { Link2, MessageSquareText } from "lucide-react-native";
+import { useMemo } from "react";
 import {
   Linking,
   Platform,
@@ -11,15 +12,30 @@ import {
   View,
 } from "react-native";
 
-export const Post = ({ id, title, url, score }: Item) => {
+export const Post = ({ id, title, url, score, text }: Item) => {
+  console.log(url, text);
+
+  const isExternal = useMemo(() => {
+    return text === undefined;
+  }, [text]);
+
   return (
     <View style={{ padding: 22, gap: 6 }}>
-      <Link
-        href={`/${id}`}
-        style={{ color: "black", fontSize: 20, fontWeight: 500 }}
+      <Pressable
+        onPress={() => {
+          // When the app title is clicked, link-only posts should be opened in the browser (currently external)
+          // only when user presses Comment, we might need to do it differently
+          // FIXME investigate whether it is possible to hook into authenticated actions
+          // i.e liking, writing comments, hiding post etc...
+          if (isExternal) Linking.openURL(url);
+          else router.push({ pathname: `./${id.toString()}` });
+        }}
       >
-        {title}
-      </Link>
+        <Text style={{ color: "black", fontSize: 20, fontWeight: 500 }}>
+          {title}
+        </Text>
+      </Pressable>
+      <Link href={`/${id}`}>{title}</Link>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
         <Pressable
           style={StyleSheet.compose(styles.baseButton, styles.button)}
