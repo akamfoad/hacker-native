@@ -13,18 +13,11 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 - [ ] Show post details
   - [X] Post Details
   - [X] Post Comments
-  - [ ] Upvote Post
-  - [ ] Reply Post
-  - [ ] Favorite Post
   - [ ] Subscribe to Firebase realtime to update interaction as they get updated
 - [ ] Show comment details
   - [ ] Comment Details
-  - [ ] Upvote Comment
-  - [ ] Reply Comment
-  - [ ] Favorite Comment
   - [ ] Subscribe to Firebase realtime to update interaction as they get updated
 - [ ] User account
-  - [ ] Sign in
-  - [ ] Sign up
-  - [ ] Pick a provider to show profile icon (GitHub, gravatar etc...) based on username or email
+  - [ ] Show User details
+  - [ ] Navigate user Posts, Polls or Comments
 - [ ] Enhance text rendering (Code blocks (pre>code), blockquote, list, inline code (code))
