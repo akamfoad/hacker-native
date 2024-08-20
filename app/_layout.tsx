@@ -13,6 +13,7 @@ const queryClient = new QueryClient();
 
 export default function Layout() {
   const safeArea = useSafeAreaInsets();
+
   return (
     <>
       <SafeAreaProvider style={{ backgroundColor: "#fff5ee" }}>

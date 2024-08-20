@@ -2,7 +2,10 @@ import { Loader } from "lucide-react-native";
 import { useEffect } from "react";
 import { Animated, Easing } from "react-native";
 
-export const Spinner = () => {
+type Props = {
+  variant: "dark" | "light";
+};
+export const Spinner = ({ variant }: Props) => {
   const rotateAnimation = new Animated.Value(0);
 
   useEffect(() => {
@@ -27,7 +30,7 @@ export const Spinner = () => {
         transform: [{ rotate }],
       }}
     >
-      <Loader width={24} color="#000" />
+      <Loader width={24} color={variant === "dark" ? "#000" : "#fff"} />
     </Animated.View>
   );
 };

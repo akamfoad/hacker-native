@@ -23,7 +23,7 @@ export default function ItemDetails() {
   const { width: windowWidth } = useWindowDimensions();
 
   if (typeof itemId !== "string") {
-    return router.replace("/");
+    return router.back();
   }
 
   const { data: item } = useQuery({
@@ -33,7 +33,7 @@ export default function ItemDetails() {
 
   return (
     <View style={styles.page}>
-      <Pressable onPress={() => router.replace("/")} style={styles.backButton}>
+      <Pressable onPress={() => router.back()} style={styles.backButton}>
         <ArrowLeft color={Colors.accent} width={20} strokeWidth={3} />
         <Text style={styles.backButtonText}>Back</Text>
       </Pressable>

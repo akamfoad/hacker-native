@@ -70,7 +70,7 @@ export const Comments = ({ id, kids, children }: Props) => {
               marginVertical: 15,
             }}
           >
-            <Spinner />
+            <Spinner variant="dark" />
           </View>
         );
       }}

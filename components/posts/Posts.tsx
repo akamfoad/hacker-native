@@ -81,7 +81,7 @@ export const Posts = () => {
               marginVertical: 15,
             }}
           >
-            <Spinner />
+            <Spinner variant="dark" />
           </View>
         );
       }}
