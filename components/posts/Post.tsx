@@ -123,7 +123,8 @@ const styles = StyleSheet.create({
   },
   link: { paddingHorizontal: 0, paddingVertical: 0 },
   button: {
-    backgroundColor: "#f1f1f1",
-    maxHeight: 32, minHeight:32
+    backgroundColor: "#e2e8f0",
+    maxHeight: 32,
+    minHeight: 32,
   },
 });

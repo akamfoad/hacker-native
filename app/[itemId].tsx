@@ -195,6 +195,6 @@ const styles = StyleSheet.create({
   },
   link: { paddingHorizontal: 0, paddingVertical: 0 },
   button: {
-    backgroundColor: "#f1f1f1",
+    backgroundColor: "#e2e8f0",
   },
 });
