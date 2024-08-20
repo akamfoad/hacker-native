@@ -33,13 +33,9 @@ export default function ItemDetails() {
 
   return (
     <View style={styles.page}>
-      <Pressable onPress={() => router.back()} style={styles.backButton}>
-        <ArrowLeft color={Colors.accent} width={20} strokeWidth={3} />
-        <Text style={styles.backButtonText}>Back</Text>
-      </Pressable>
       {item && (
         <Comments id={item.id} kids={item.kids}>
-          <View style={{ gap: 10 }}>
+          <View style={{ gap: 10, paddingTop: 22 }}>
             <Text style={{ color: "black", fontSize: 20, fontWeight: 500 }}>
               {item.title}
             </Text>
@@ -47,7 +43,6 @@ export default function ItemDetails() {
           <View
             style={{
               height: 1,
-              // backgroundColor: "#e2e8f0",
               marginVertical: 14,
             }}
           />
@@ -176,7 +171,6 @@ export default function ItemDetails() {
 
 const styles = StyleSheet.create({
   page: {
-    paddingTop: 22,
     flex: 1,
   },
   backButton: {

@@ -1,7 +1,7 @@
 import { Header } from "@/components/Header";
 import { Colors } from "@/constants/Colors";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Slot } from "expo-router";
+import { Slot, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";
 import {
@@ -11,21 +11,33 @@ import {
 
 const queryClient = new QueryClient();
 
-export default function Layout() {
+const StackHeader = () => {
   const safeArea = useSafeAreaInsets();
 
   return (
     <>
-      <SafeAreaProvider style={{ backgroundColor: "#fff5ee" }}>
-        <StatusBar style="inverted" backgroundColor={Colors.accent} />
-        <QueryClientProvider client={queryClient}>
-          <View
-            style={{ backgroundColor: Colors.accent, height: safeArea.top }}
+      <View
+        style={{
+          backgroundColor: Colors.accent,
+          height: safeArea.top,
+        }}
+      />
+      <Header />
+    </>
+  );
+};
+export default function Layout() {
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        <SafeAreaProvider style={{ backgroundColor: "#fff5ee" }}>
+          <Stack
+            screenOptions={{
+              header: StackHeader,
+            }}
           />
-          <Header />
-          <Slot />
-        </QueryClientProvider>
-      </SafeAreaProvider>
+        </SafeAreaProvider>
+      </QueryClientProvider>
     </>
   );
 }
