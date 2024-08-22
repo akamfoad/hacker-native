@@ -1,16 +1,16 @@
 import { Comments } from "@/components/comments/comments";
 import { Colors } from "@/constants/Colors";
 import { getItemDetailsQueryKey, getItemQueryFn } from "@/constants/item";
+import { parseTitle } from "@/lib/text";
 import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNowStrict } from "date-fns";
 import * as Haptics from "expo-haptics";
-import { router, useLocalSearchParams } from "expo-router";
-import { ArrowLeft, Link2, MessageSquareText } from "lucide-react-native";
+import { router, Stack, useLocalSearchParams } from "expo-router";
+import { Link2, MessageSquareText } from "lucide-react-native";
 import {
   Linking,
   Platform,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
   useWindowDimensions,
@@ -33,13 +33,23 @@ export default function ItemDetails() {
 
   return (
     <View style={styles.page}>
+      <Stack.Screen
+        options={{
+          title:
+            item !== undefined
+              ? parseTitle((item.title || item.text).slice(0, 100))
+              : "",
+        }}
+      />
       {item && (
         <Comments id={item.id} kids={item.kids}>
-          <View style={{ gap: 10, paddingTop: 22 }}>
-            <Text style={{ color: "black", fontSize: 20, fontWeight: 500 }}>
-              {item.title}
-            </Text>
-          </View>
+          {typeof item.title === "string" && (
+            <View style={{ gap: 10, paddingTop: 22 }}>
+              <Text style={{ color: "black", fontSize: 20, fontWeight: 500 }}>
+                {item.title}
+              </Text>
+            </View>
+          )}
           <View
             style={{
               height: 1,
@@ -116,7 +126,7 @@ export default function ItemDetails() {
                 }}
               >
                 <Text style={{ fontSize: 18, lineHeight: 18 }}>▲</Text>{" "}
-                {item.score}
+                {item.score || 0}
               </Text>
             </Pressable>
             <Pressable

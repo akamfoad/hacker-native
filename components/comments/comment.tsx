@@ -13,8 +13,12 @@ import * as Haptics from "expo-haptics";
 
 import RenderHTML from "react-native-render-html";
 import { MessageSquareText } from "lucide-react-native";
+import { getItemDetailsQueryKey, getItemQueryFn } from "@/constants/item";
+import { router } from "expo-router";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const Comment = (item: Item) => {
+  const QC = useQueryClient();
   const { width: windowWidth } = useWindowDimensions();
 
   return (
@@ -89,9 +93,11 @@ export const Comment = (item: Item) => {
         <Pressable
           style={StyleSheet.compose(styles.baseButton, styles.button)}
           onPress={async () => {
-            await Haptics.notificationAsync(
-              Haptics.NotificationFeedbackType.Warning
-            );
+            await QC.prefetchQuery({
+              queryKey: getItemDetailsQueryKey(item.id),
+              queryFn: getItemQueryFn,
+            });
+            router.push({ pathname: `./${item.id.toString()}` });
           }}
         >
           <MessageSquareText color="black" width={16} />

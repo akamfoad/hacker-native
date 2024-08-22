@@ -1,8 +1,7 @@
 import { Header } from "@/components/Header";
 import { Colors } from "@/constants/Colors";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Slot, Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import { Stack } from "expo-router";
 import { View } from "react-native";
 import {
   SafeAreaProvider,
@@ -27,13 +26,28 @@ const StackHeader = () => {
   );
 };
 export default function Layout() {
+  const safeArea = useSafeAreaInsets();
+
   return (
     <>
       <QueryClientProvider client={queryClient}>
         <SafeAreaProvider style={{ backgroundColor: "#fff5ee" }}>
           <Stack
             screenOptions={{
-              header: StackHeader,
+              headerBackground: () => (
+                <View
+                  style={{
+                    backgroundColor: Colors.accent,
+                    height: safeArea.top,
+                  }}
+                />
+              ),
+              headerBackTitleVisible: false,
+              headerTintColor: "#f1f1f1",
+              headerBackButtonMenuEnabled: true,
+              headerStyle: {
+                backgroundColor: Colors.accent,
+              },
             }}
           />
         </SafeAreaProvider>

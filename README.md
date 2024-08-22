@@ -15,7 +15,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
   - [X] Post Comments
   - [ ] Subscribe to Firebase realtime to update interaction as they get updated
 - [ ] Show comment details
-  - [ ] Comment Details
+  - [X] Comment Details
   - [ ] Subscribe to Firebase realtime to update interaction as they get updated
 - [ ] User account
   - [ ] Show User details
