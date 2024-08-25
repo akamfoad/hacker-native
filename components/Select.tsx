@@ -81,14 +81,7 @@ export const StoriesSelect = ({
       )}
       <Pressable
         style={styles.trigger}
-        onPress={() =>
-          setIsOpen((prev) => {
-            const newValue = !prev;
-            // if (newValue) opacity.value = withSpring(1);
-            // else opacity.value = withSpring(0);
-            return newValue;
-          })
-        }
+        onPress={() => setIsOpen((prev) => !prev)}
       >
         <ListFilter color="#f1f1f1" />
         <Text style={styles.triggerLabel}>
