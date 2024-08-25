@@ -4,13 +4,33 @@ interface TypedResponse<T> extends Response {
   json(): Promise<T>;
 }
 
+export type GetStoriesEndpoint = () => Promise<TypedResponse<number[]>>;
+
 export const getTopStories = () => {
   return fetch("https://hacker-news.firebaseio.com/v0/topstories.json", {
     method: "GET",
   }) as Promise<TypedResponse<number[]>>;
 };
 
-export const getItemDetails = (id: number|string) => {
+export const getBestStories = () => {
+  return fetch("https://hacker-news.firebaseio.com/v0/beststories.json", {
+    method: "GET",
+  }) as Promise<TypedResponse<number[]>>;
+};
+
+export const getAskStories = () => {
+  return fetch("https://hacker-news.firebaseio.com/v0/askstories.json", {
+    method: "GET",
+  }) as Promise<TypedResponse<number[]>>;
+};
+
+export const getShowStories = () => {
+  return fetch("https://hacker-news.firebaseio.com/v0/showstories.json", {
+    method: "GET",
+  }) as Promise<TypedResponse<number[]>>;
+};
+
+export const getItemDetails = (id: number | string) => {
   return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`, {
     method: "GET",
   }) as Promise<TypedResponse<Item>>;

@@ -1,9 +1,28 @@
-import { Posts } from "@/components/posts/Posts";
-import { Colors } from "@/constants/Colors";
 import { Stack } from "expo-router";
+import { useMemo, useState } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 
+import { Posts } from "@/components/posts/Posts";
+import { Option, StoriesSelect } from "@/components/Select";
+
+import {
+  MAP_STORY_TYPE_TO_ICON,
+  StoryType,
+  storyTypes,
+} from "@/constants/stories";
+import { Colors } from "@/constants/Colors";
+
 export default function HomeScreen() {
+  const [storyType, setStoryType] = useState<StoryType>("topstories");
+
+  const storyOptions: Option[] = useMemo(() => {
+    return storyTypes.map(({ label, type }) => ({
+      id: type,
+      label,
+      icon: MAP_STORY_TYPE_TO_ICON[type],
+    }));
+  }, []);
+
   return (
     <>
       <Stack.Screen
@@ -19,7 +38,12 @@ export default function HomeScreen() {
         }}
       />
 
-      <Posts />
+      <Posts storyType={storyType} />
+      <StoriesSelect
+        value={storyType}
+        onChange={setStoryType}
+        options={storyOptions}
+      />
     </>
   );
 }

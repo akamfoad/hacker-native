@@ -2,9 +2,17 @@ import { getItemDetails, getTopStories } from "@/api/endpoints";
 import { Spinner } from "@/components/Spinner";
 import { Post } from "@/components/posts/Post";
 import { ITEMS_PER_PAGE } from "@/constants/pagination";
+import {
+  MAP_STORY_TYPE_TO_STORY_ENDPOINTS,
+  StoryType,
+} from "@/constants/stories";
 import { Item } from "@/shared/types";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { useMemo } from "react";
+import {
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { useEffect, useMemo } from "react";
 import { FlatList, ListRenderItem, View } from "react-native";
 
 const renderItem: ListRenderItem<Item> = ({ item }) => {
@@ -14,11 +22,13 @@ const renderItem: ListRenderItem<Item> = ({ item }) => {
 const ItemSeparatorComponent = () => (
   <View style={{ height: 1, backgroundColor: "#e2e8f0" }}></View>
 );
-export const Posts = () => {
-  const topStoriesQuery = useQuery({
-    queryKey: ["topStoryIds"],
+
+export const Posts = ({ storyType }: { storyType: StoryType }) => {
+  const storyListQuery = useQuery({
+    queryKey: ["storyIds", storyType],
     queryFn: async () => {
-      const res = await getTopStories();
+      const getItemIds = MAP_STORY_TYPE_TO_STORY_ENDPOINTS[storyType];
+      const res = await getItemIds();
       const topStories = await res.json();
 
       return topStories;
@@ -26,11 +36,11 @@ export const Posts = () => {
   });
 
   const { data, hasNextPage, fetchNextPage, isLoading } = useInfiniteQuery({
-    queryKey: ["topStories"],
+    queryKey: ["storyDetails", storyType],
     queryFn: async ({ pageParam = 0 }) => {
-      if (!topStoriesQuery.data) return [];
+      if (!storyListQuery.data) return [];
 
-      const pageIds = topStoriesQuery.data.slice(
+      const pageIds = storyListQuery.data.slice(
         pageParam,
         pageParam + ITEMS_PER_PAGE
       );
@@ -44,12 +54,12 @@ export const Posts = () => {
       return posts;
     },
     getNextPageParam: (lastPage, allPages) => {
-      if (!topStoriesQuery.data) return undefined;
+      if (!storyListQuery.data) return undefined;
 
       const nextPage = allPages.length * ITEMS_PER_PAGE;
-      return nextPage < topStoriesQuery.data.length ? nextPage : undefined;
+      return nextPage < storyListQuery.data.length ? nextPage : undefined;
     },
-    enabled: !!topStoriesQuery.data,
+    enabled: !!storyListQuery.data,
     initialPageParam: 0,
   });
 

@@ -10,6 +10,11 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
   - [X] Show link, comment and upvote count
   - [ ] Subscribe to Firebase realtime to update interaction as they get updated
   - [X] Restore scroll position when navigating to details and get back to list screen
+  - [X] Filter home list to show between:
+    - [X] topstories.json
+    - [X] besttories.json
+    - [X] asktories.json
+    - [X] showtories.json
 - [ ] Show post details
   - [X] Post Details
   - [X] Post Comments
