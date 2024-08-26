@@ -1,10 +1,18 @@
+import Animated, {
+  SlideInDown,
+  SlideOutDown,
+  useAnimatedProps,
+  useSharedValue,
+  withDelay,
+  withTiming,
+} from "react-native-reanimated";
+import { BlurView } from "expo-blur";
+import { useEffect, useMemo, useState } from "react";
+import { Pressable, StyleSheet, Text } from "react-native";
+import { ListFilter, LucideIcon } from "lucide-react-native";
+
 import { Colors } from "@/constants/Colors";
 import { StoryType } from "@/constants/stories";
-import { BlurView } from "expo-blur";
-import { ListFilter, LucideIcon } from "lucide-react-native";
-import { useMemo, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import Animated, { SlideInDown, SlideOutDown } from "react-native-reanimated";
 
 export type Option = {
   id: StoryType;
@@ -19,6 +27,10 @@ type Props = {
   defaultOpen?: boolean;
 };
 
+const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
+
+const listEnterAnimation = SlideInDown.delay(50);
+
 export const StoriesSelect = ({
   onChange,
   value,
@@ -32,52 +44,64 @@ export const StoriesSelect = ({
     [options, value]
   );
 
+  const intensity = useSharedValue(0);
+
+  const animatedProps = useAnimatedProps(() => ({
+    intensity: intensity.value,
+  }));
+
+  useEffect(() => {
+    intensity.value = withDelay(
+      isOpen ? 0 : 50,
+      withTiming(isOpen ? 10 : 0, { duration: 200 })
+    );
+  }, [isOpen]);
+
   return (
     <>
+      <AnimatedBlurView
+        animatedProps={animatedProps}
+        tint="systemMaterial"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          pointerEvents: isOpen ? "auto" : "none",
+        }}
+        onTouchEnd={() => setIsOpen(false)}
+      />
       {isOpen && (
-        <>
-          <BlurView
-            intensity={isOpen ? 10 : 0}
-            tint="systemMaterial"
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-            }}
-            onTouchEnd={() => setIsOpen(false)}
-          />
-          <Animated.View
-            entering={SlideInDown}
-            exiting={SlideOutDown}
-            style={[styles.root]}
-          >
-            {options.map((item) => {
-              const isSelected = value === item.id;
+        <Animated.View
+          entering={listEnterAnimation}
+          exiting={SlideOutDown}
+          style={[styles.root]}
+        >
+          {options.map((item) => {
+            const isSelected = value === item.id;
 
-              return (
-                <Pressable
-                  key={item.id}
-                  style={StyleSheet.compose(
-                    styles.option,
-                    isSelected ? styles.optionSelected : undefined
-                  )}
-                  onPress={() => {
-                    onChange(item.id);
-                    setIsOpen(false);
-                  }}
-                >
-                  <item.icon
-                    color={isSelected ? Colors.accent : "#18181b"}
-                    fill={isSelected ? Colors.accent : "transparent"}
-                  />
-                  <Text style={styles.optionLabel}>{item.label}</Text>
-                </Pressable>
-              );
-            })}
-          </Animated.View>
-        </>
+            return (
+              <Pressable
+                key={item.id}
+                style={StyleSheet.compose(
+                  styles.option,
+                  isSelected ? styles.optionSelected : undefined
+                )}
+                onPress={() => {
+                  onChange(item.id);
+                  setIsOpen(false);
+                }}
+              >
+                <item.icon
+                  color={isSelected ? Colors.accent : "#18181b"}
+                  fill={isSelected ? Colors.accent : "transparent"}
+                />
+                <Text style={styles.optionLabel}>{item.label}</Text>
+              </Pressable>
+            );
+          })}
+        </Animated.View>
       )}
       <Pressable
         style={styles.trigger}
