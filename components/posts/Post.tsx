@@ -33,10 +33,8 @@ export const Post = ({ id, title, url, score, text, kids }: Item) => {
     <View style={{ padding: 22, gap: 12 }}>
       <Pressable
         onPress={async () => {
-          // When the app title is clicked, link-only posts should be opened in the browser (currently external)
+          // When the item title is clicked, link-only posts should be opened in the browser (currently external)
           // only when user presses Comment, we might need to do it differently
-          // FIXME investigate whether it is possible to hook into authenticated actions
-          // i.e liking, writing comments, hiding post etc...
           if (isExternal) Linking.openURL(url);
           else await navigateToDetails();
         }}

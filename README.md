@@ -15,13 +15,11 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
     - [X] besttories.json
     - [X] asktories.json
     - [X] showtories.json
-- [ ] Show post details
+- [X] Show post details
   - [X] Post Details
   - [X] Post Comments
-  - [ ] Subscribe to Firebase realtime to update interaction as they get updated
-- [ ] Show comment details
+- [X] Show comment details
   - [X] Comment Details
-  - [ ] Subscribe to Firebase realtime to update interaction as they get updated
 - [ ] User account
   - [ ] Show User details
   - [ ] Navigate user Posts, Polls or Comments
