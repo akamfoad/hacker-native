@@ -1,4 +1,4 @@
-import { getItemDetails, getTopStories } from "@/api/endpoints";
+import { getItemDetails } from "@/api/endpoints";
 import { Spinner } from "@/components/Spinner";
 import { Post } from "@/components/posts/Post";
 import { ITEMS_PER_PAGE } from "@/constants/pagination";
@@ -7,16 +7,16 @@ import {
   StoryType,
 } from "@/constants/stories";
 import { Item } from "@/shared/types";
-import {
-  useInfiniteQuery,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
-import { useEffect, useMemo } from "react";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 import { FlatList, ListRenderItem, View } from "react-native";
 
 const renderItem: ListRenderItem<Item> = ({ item }) => {
-  return <Post {...item} />;
+  return (
+    <View style={{ padding: 22 }}>
+      <Post {...item} />
+    </View>
+  );
 };
 
 const ItemSeparatorComponent = () => (

@@ -14,11 +14,12 @@ import * as Haptics from "expo-haptics";
 import RenderHTML from "react-native-render-html";
 import { MessageSquareText } from "lucide-react-native";
 import { getItemDetailsQueryKey, getItemQueryFn } from "@/constants/item";
-import { router } from "expo-router";
+import { Href, router, usePathname } from "expo-router";
 import { useQueryClient } from "@tanstack/react-query";
 
 export const Comment = (item: Item) => {
   const QC = useQueryClient();
+  const pathname = usePathname();
   const { width: windowWidth } = useWindowDimensions();
 
   return (
@@ -30,19 +31,24 @@ export const Comment = (item: Item) => {
       }}
     >
       <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
-        <Text
-          style={{
-            fontSize: 14,
-            fontWeight: 500,
-            fontFamily: Platform.select({
-              ios: "Menlo",
-              android: "monospace",
-              default: "monospace",
-            }),
-          }}
+        <Pressable
+          disabled={pathname.startsWith(`/users/${item.by}`)}
+          onPress={() => router.push(`/users/${item.by}`)}
         >
-          {item.by}
-        </Text>
+          <Text
+            style={{
+              fontSize: 14,
+              fontWeight: 500,
+              fontFamily: Platform.select({
+                ios: "Menlo",
+                android: "monospace",
+                default: "monospace",
+              }),
+            }}
+          >
+            {item.by}
+          </Text>
+        </Pressable>
         {item.time && (
           <Text>
             {formatDistanceToNowStrict(new Date(item.time * 1000), {
@@ -97,7 +103,7 @@ export const Comment = (item: Item) => {
               queryKey: getItemDetailsQueryKey(item.id),
               queryFn: getItemQueryFn,
             });
-            router.push({ pathname: `./${item.id.toString()}` });
+            router.push({ pathname: `../${item.id.toString()}` });
           }}
         >
           <MessageSquareText color="black" width={16} />

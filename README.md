@@ -6,9 +6,8 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 ## Todo
 
-- [ ] Show List of Posts
+- [X] Show List of Posts
   - [X] Show link, comment and upvote count
-  - [ ] Subscribe to Firebase realtime to update interaction as they get updated
   - [X] Restore scroll position when navigating to details and get back to list screen
   - [X] Filter home list to show between:
     - [X] topstories.json
@@ -20,7 +19,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
   - [X] Post Comments
 - [X] Show comment details
   - [X] Comment Details
-- [ ] User account
-  - [ ] Show User details
-  - [ ] Navigate user Posts, Polls or Comments
+- [X] User account
+  - [X] Show User details
+  - [X] Navigate user Posts, Polls or Comments
 - [ ] Enhance text rendering (Code blocks (pre>code), blockquote, list, inline code (code))

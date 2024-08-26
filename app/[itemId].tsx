@@ -5,8 +5,8 @@ import { parseTitle } from "@/lib/text";
 import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNowStrict } from "date-fns";
 import * as Haptics from "expo-haptics";
-import { router, Stack, useLocalSearchParams } from "expo-router";
-import { Link2, MessageSquareText } from "lucide-react-native";
+import { Link, router, Stack, useLocalSearchParams } from "expo-router";
+import { ArrowRightIcon, Link2, MessageSquareText } from "lucide-react-native";
 import {
   Linking,
   Platform,
@@ -29,6 +29,12 @@ export default function ItemDetails() {
   const { data: item } = useQuery({
     queryKey: getItemDetailsQueryKey(itemId),
     queryFn: getItemQueryFn,
+  });
+
+  const { data: parentItem } = useQuery({
+    queryKey: getItemDetailsQueryKey(item?.parent || 0),
+    queryFn: getItemQueryFn,
+    enabled: !!item?.parent && item.type === "comment",
   });
 
   return (
@@ -65,19 +71,21 @@ export default function ItemDetails() {
               marginBottom: typeof item.text === "string" ? 0 : 24,
             }}
           >
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: 500,
-                fontFamily: Platform.select({
-                  ios: "Menlo",
-                  android: "monospace",
-                  default: "monospace",
-                }),
-              }}
-            >
-              {item.by}
-            </Text>
+            <Pressable onPress={() => router.push(`/users/${item.by}`)}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: 500,
+                  fontFamily: Platform.select({
+                    ios: "Menlo",
+                    android: "monospace",
+                    default: "monospace",
+                  }),
+                }}
+              >
+                {item.by}
+              </Text>
+            </Pressable>
             {item.time && (
               <Text>
                 posted{" "}
@@ -173,6 +181,47 @@ export default function ItemDetails() {
               </Pressable>
             )}
           </View>
+
+          {parentItem ? (
+            <Pressable
+              style={{
+                width: "100%",
+                backgroundColor: "#ffedd5",
+                paddingHorizontal: 12,
+                paddingVertical: 6,
+                borderRadius: 8,
+                gap: 4,
+                marginBottom: 24,
+              }}
+              onPress={() => router.push(`../${parentItem.id}`)}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text style={{ color: "#431407", lineHeight: 24 }}>
+                  Commented on:
+                </Text>
+                <ArrowRightIcon color="#431407" height={18} />
+              </View>
+              <Text
+                style={{
+                  fontFamily: Platform.select({
+                    ios: "Menlo",
+                    android: "monospace",
+                    default: "monospace",
+                  }),
+                  lineHeight: 22,
+                }}
+              >
+                {parseTitle((parentItem.title || parentItem.text).slice(0, 72))}
+                {(parentItem.title || parentItem.text).length > 72 ? "..." : ""}
+              </Text>
+            </Pressable>
+          ) : null}
         </Comments>
       )}
     </View>

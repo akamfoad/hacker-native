@@ -1,4 +1,4 @@
-import { Item } from "@/shared/types";
+import { Item, User } from "@/shared/types";
 
 interface TypedResponse<T> extends Response {
   json(): Promise<T>;
@@ -34,4 +34,10 @@ export const getItemDetails = (id: number | string) => {
   return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`, {
     method: "GET",
   }) as Promise<TypedResponse<Item>>;
+};
+
+export const getUserDetails = (id: number | string) => {
+  return fetch(`https://hacker-news.firebaseio.com/v0/user/${id}.json`, {
+    method: "GET",
+  }) as Promise<TypedResponse<User>>;
 };

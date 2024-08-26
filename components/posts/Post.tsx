@@ -26,11 +26,11 @@ export const Post = ({ id, title, url, score, text, kids }: Item) => {
       queryKey: getItemDetailsQueryKey(id),
       queryFn: getItemQueryFn,
     });
-    router.push({ pathname: `./${id.toString()}` });
+    router.push({ pathname: `../${id.toString()}` });
   };
 
   return (
-    <View style={{ padding: 22, gap: 12 }}>
+    <View style={{ gap: 12 }}>
       <Pressable
         onPress={async () => {
           // When the item title is clicked, link-only posts should be opened in the browser (currently external)
