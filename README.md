@@ -1,10 +1,12 @@
 # Hacker Native 🆈 ⚛️
 
-[Design Inspiration]( https://dribbble.com/shots/21381309-Mobile-News-Site-Redesign-Hacker-News#)
+A Hacker News client for reading HN content!
+
+Found some [Design Inspiration]( https://dribbble.com/shots/21381309-Mobile-News-Site-Redesign-Hacker-News#) on Dribbble!
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Todo
+## Features
 
 - [X] Show List of Posts
   - [X] Show link, comment and upvote count
