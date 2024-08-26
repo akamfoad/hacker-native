@@ -1,13 +1,15 @@
-import { getItemDetails } from "@/api/endpoints";
-import { Comment } from "@/components/comments/comment";
-import { Post } from "@/components/posts/Post";
-import { Spinner } from "@/components/Spinner";
-import { ITEMS_PER_PAGE } from "@/constants/pagination";
-import { Item, User } from "@/shared/types";
-import { useInfiniteQuery } from "@tanstack/react-query";
 import { ReactNode, useMemo } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { FlatList, ListRenderItem, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+import { Post } from "@/components/posts/Post";
+import { Spinner } from "@/components/Spinner";
+import { Comment } from "@/components/comments/comment";
+
+import { getItemDetails } from "@/api/endpoints";
+import type { Item, User } from "@/shared/types";
+import { ITEMS_PER_PAGE } from "@/constants/pagination";
 
 type Props = Pick<User, "id" | "submitted"> & {
   children: ReactNode;

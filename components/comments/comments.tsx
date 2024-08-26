@@ -1,12 +1,14 @@
-import { getItemDetails } from "@/api/endpoints";
-import { Comment } from "@/components/comments/comment";
-import { Spinner } from "@/components/Spinner";
-import { ITEMS_PER_PAGE } from "@/constants/pagination";
-import { Item } from "@/shared/types";
-import { useInfiniteQuery } from "@tanstack/react-query";
 import { ReactNode, useMemo } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { FlatList, ListRenderItem, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+import { Spinner } from "@/components/Spinner";
+import { Comment } from "@/components/comments/comment";
+
+import type { Item } from "@/shared/types";
+import { getItemDetails } from "@/api/endpoints";
+import { ITEMS_PER_PAGE } from "@/constants/pagination";
 
 type Props = Pick<Item, "id" | "kids"> & {
   children: ReactNode;

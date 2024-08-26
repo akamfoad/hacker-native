@@ -1,4 +1,4 @@
-import { Item, User } from "@/shared/types";
+import type { Item, User } from "@/shared/types";
 
 interface TypedResponse<T> extends Response {
   json(): Promise<T>;

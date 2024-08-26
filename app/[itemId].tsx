@@ -1,22 +1,23 @@
-import { Comments } from "@/components/comments/comments";
-import { Colors } from "@/constants/Colors";
-import { getItemDetailsQueryKey, getItemQueryFn } from "@/constants/item";
-import { parseTitle } from "@/lib/text";
-import { useQuery } from "@tanstack/react-query";
-import { formatDistanceToNowStrict } from "date-fns";
-import * as Haptics from "expo-haptics";
-import { Link, router, Stack, useLocalSearchParams } from "expo-router";
-import { ArrowRightIcon, Link2, MessageSquareText } from "lucide-react-native";
 import {
+  Text,
+  View,
   Linking,
   Platform,
   Pressable,
   StyleSheet,
-  Text,
   useWindowDimensions,
-  View,
 } from "react-native";
+import * as Haptics from "expo-haptics";
+import { useQuery } from "@tanstack/react-query";
 import RenderHTML from "react-native-render-html";
+import { formatDistanceToNowStrict } from "date-fns";
+import { router, Stack, useLocalSearchParams } from "expo-router";
+import { ArrowRightIcon, Link2, MessageSquareText } from "lucide-react-native";
+
+import { parseTitle } from "@/lib/text";
+import { Colors } from "@/constants/Colors";
+import { Comments } from "@/components/comments/comments";
+import { getItemDetailsQueryKey, getItemQueryFn } from "@/constants/item";
 
 export default function ItemDetails() {
   const { itemId } = useLocalSearchParams();

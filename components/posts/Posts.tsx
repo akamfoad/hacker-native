@@ -1,15 +1,17 @@
-import { getItemDetails } from "@/api/endpoints";
-import { Spinner } from "@/components/Spinner";
-import { Post } from "@/components/posts/Post";
-import { ITEMS_PER_PAGE } from "@/constants/pagination";
-import {
-  MAP_STORY_TYPE_TO_STORY_ENDPOINTS,
-  StoryType,
-} from "@/constants/stories";
-import { Item } from "@/shared/types";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { FlatList, ListRenderItem, View } from "react-native";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+
+import { Post } from "@/components/posts/Post";
+import { Spinner } from "@/components/Spinner";
+
+import type { Item } from "@/shared/types";
+import { getItemDetails } from "@/api/endpoints";
+import { ITEMS_PER_PAGE } from "@/constants/pagination";
+import {
+  type StoryType,
+  MAP_STORY_TYPE_TO_STORY_ENDPOINTS,
+} from "@/constants/stories";
 
 const renderItem: ListRenderItem<Item> = ({ item }) => {
   return (

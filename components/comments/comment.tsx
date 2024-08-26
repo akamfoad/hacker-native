@@ -1,21 +1,21 @@
 import {
+  Text,
+  View,
   Platform,
   Pressable,
   StyleSheet,
-  Text,
   useWindowDimensions,
-  View,
 } from "react-native";
-import { Item } from "@/shared/types";
-import { formatDistanceToNow, formatDistanceToNowStrict } from "date-fns";
-import { Colors } from "@/constants/Colors";
 import * as Haptics from "expo-haptics";
-
 import RenderHTML from "react-native-render-html";
-import { MessageSquareText } from "lucide-react-native";
-import { getItemDetailsQueryKey, getItemQueryFn } from "@/constants/item";
-import { Href, router, usePathname } from "expo-router";
+import { router, usePathname } from "expo-router";
+import { formatDistanceToNowStrict } from "date-fns";
 import { useQueryClient } from "@tanstack/react-query";
+import { MessageSquareText } from "lucide-react-native";
+
+import type { Item } from "@/shared/types";
+import { Colors } from "@/constants/Colors";
+import { getItemDetailsQueryKey, getItemQueryFn } from "@/constants/item";
 
 export const Comment = (item: Item) => {
   const QC = useQueryClient();

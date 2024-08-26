@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Hacker News",
+    "name": "Hacker Native",
     "slug": "hacker-native",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "dev.akamfoad.hackernews"
+      "bundleIdentifier": "dev.akamfoad.hackernative"
     },
     "android": {
       "adaptiveIcon": {

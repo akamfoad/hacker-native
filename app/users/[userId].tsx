@@ -1,17 +1,17 @@
-import { Activities } from "@/components/posts/user-activities/UserActivities";
-import { getItemDetailsQueryKey } from "@/constants/item";
-import { getUserDetailsQueryKey, getUserQueryFn } from "@/constants/user";
-import { parseTitle } from "@/lib/text";
-import { useQuery } from "@tanstack/react-query";
-import { router, Stack, useLocalSearchParams } from "expo-router";
 import {
+  Text,
+  View,
   Platform,
   StyleSheet,
-  Text,
   useWindowDimensions,
-  View,
 } from "react-native";
+import { useQuery } from "@tanstack/react-query";
 import RenderHTML from "react-native-render-html";
+import { router, Stack, useLocalSearchParams } from "expo-router";
+
+import { Activities } from "@/components/posts/user-activities/UserActivities";
+
+import { getUserDetailsQueryKey, getUserQueryFn } from "@/constants/user";
 
 export default function UserDetails() {
   const { userId } = useLocalSearchParams();

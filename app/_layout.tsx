@@ -1,34 +1,17 @@
-import { Header } from "@/components/Header";
-import { Colors } from "@/constants/Colors";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Stack, usePathname } from "expo-router";
 import { View } from "react-native";
+import { Stack } from "expo-router";
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import { Colors } from "@/constants/Colors";
 
 const queryClient = new QueryClient();
 
-const StackHeader = () => {
-  const safeArea = useSafeAreaInsets();
-
-  return (
-    <>
-      <View
-        style={{
-          backgroundColor: Colors.accent,
-          height: safeArea.top,
-        }}
-      />
-      <Header />
-    </>
-  );
-};
 export default function Layout() {
   const safeArea = useSafeAreaInsets();
-
-  console.log(usePathname())
 
   return (
     <>

@@ -31,7 +31,7 @@ export default function HomeScreen() {
           headerTitle: () => (
             <View style={styles.nameContainer}>
               <Text style={styles.dimmedText}>{"{"}</Text>
-              <Text style={styles.name}>HACKER_NEWS</Text>
+              <Text style={styles.name}>HACKER_NATIVE</Text>
               <Text style={styles.dimmedText}>{"}"}</Text>
             </View>
           ),

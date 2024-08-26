@@ -1,5 +1,5 @@
-import { Loader } from "lucide-react-native";
 import { useEffect } from "react";
+import { Loader } from "lucide-react-native";
 import { Animated, Easing } from "react-native";
 
 type Props = {

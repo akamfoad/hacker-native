@@ -1,18 +1,19 @@
-import { getItemDetailsQueryKey, getItemQueryFn } from "@/constants/item";
-import { Item } from "@/shared/types";
-import { QueryClient, useQueryClient } from "@tanstack/react-query";
-import * as Haptics from "expo-haptics";
-import { Link, router } from "expo-router";
-import { Link2, MessageSquareText } from "lucide-react-native";
-import { useMemo } from "react";
 import {
+  Text,
+  View,
   Linking,
   Platform,
   Pressable,
   StyleSheet,
-  Text,
-  View,
 } from "react-native";
+import { useMemo } from "react";
+import { router } from "expo-router";
+import * as Haptics from "expo-haptics";
+import { useQueryClient } from "@tanstack/react-query";
+import { Link2, MessageSquareText } from "lucide-react-native";
+
+import type { Item } from "@/shared/types";
+import { getItemDetailsQueryKey, getItemQueryFn } from "@/constants/item";
 
 export const Post = ({ id, title, url, score, text, kids }: Item) => {
   const QC = useQueryClient();
@@ -33,8 +34,6 @@ export const Post = ({ id, title, url, score, text, kids }: Item) => {
     <View style={{ gap: 12 }}>
       <Pressable
         onPress={async () => {
-          // When the item title is clicked, link-only posts should be opened in the browser (currently external)
-          // only when user presses Comment, we might need to do it differently
           if (isExternal) Linking.openURL(url);
           else await navigateToDetails();
         }}
