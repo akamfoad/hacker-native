@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
 import { useMemo, useState } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View, Button } from "react-native";
+import * as Linking from 'expo-linking';
 
 import { Posts } from "@/components/posts/Posts";
 import { Option, StoriesSelect } from "@/components/Select";
@@ -14,6 +15,7 @@ import { Colors } from "@/constants/Colors";
 
 export default function HomeScreen() {
   const [storyType, setStoryType] = useState<StoryType>("topstories");
+  const [modalVisible, setModalVisible] = useState(false);
 
   const storyOptions: Option[] = useMemo(() => {
     return storyTypes.map(({ label, type }) => ({
@@ -22,6 +24,10 @@ export default function HomeScreen() {
       icon: MAP_STORY_TYPE_TO_ICON[type],
     }));
   }, []);
+
+  const openExpoSnack = () => {
+    Linking.openURL('https://snack.expo.dev/');
+  };
 
   return (
     <>
@@ -34,6 +40,13 @@ export default function HomeScreen() {
               <Text style={styles.name}>HACKER_NATIVE</Text>
               <Text style={styles.dimmedText}>{"}"}</Text>
             </View>
+          ),
+          headerRight: () => (
+            <Button
+              onPress={() => setModalVisible(true)}
+              title="Open with Expo Snack"
+              color={Colors.accent}
+            />
           ),
         }}
       />
