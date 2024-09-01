@@ -2,10 +2,7 @@
 
 A Hacker News client for reading HN content!
 
-<div style="text-align: center;">
-<img src="https://github.com/user-attachments/assets/db67fc81-b2fa-4c7c-9f92-f093cb4e1e9f" />
-</div>
-
+<img width="400px" src="https://github.com/user-attachments/assets/db67fc81-b2fa-4c7c-9f92-f093cb4e1e9f" />
 
 Found some [Design Inspiration]( https://dribbble.com/shots/21381309-Mobile-News-Site-Redesign-Hacker-News#) on Dribbble!
 
