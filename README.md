@@ -2,6 +2,11 @@
 
 A Hacker News client for reading HN content!
 
+<div style="text-align: center;">
+<img src="https://github.com/user-attachments/assets/db67fc81-b2fa-4c7c-9f92-f093cb4e1e9f" />
+</div>
+
+
 Found some [Design Inspiration]( https://dribbble.com/shots/21381309-Mobile-News-Site-Redesign-Hacker-News#) on Dribbble!
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
