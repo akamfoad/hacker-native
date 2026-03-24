@@ -27,9 +27,20 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": ["expo-router"],
+    "plugins": [
+      "expo-router"
+    ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "a2d3d3cd-9bad-41e9-a418-336e13a1baa8"
+      }
+    },
+    "owner": "akamfoad"
   }
 }
